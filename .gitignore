@@ -1,4 +1,7 @@
 *.exe
-.out
+*.out
+*.o
+*.so
 .cph/
 .vscode/
+practice/

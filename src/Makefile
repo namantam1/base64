@@ -5,6 +5,9 @@ RUN=run
 
 all: $(RUN)
 
+cli:
+	$(CC) $(CFLAGS) -DCOMPILE_CLI base64.cpp -o bs64
+
 %.o: %.cpp %.hpp
 	$(CC) $(CFLAGS) -c $< -o $@
 

@@ -1,5 +1,6 @@
 #include "base64.hpp"
 
+#include <fstream>
 #include <iostream>
 #include <vector>
 
@@ -13,7 +14,7 @@ static const uint8_t BASE64_TABLE[] = {
     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
-string base64::encode(vector<uint8_t> &__arr) {
+string base64::encode(const vector<uint8_t> &__arr) {
     string __res;
     size_t padding;
 
@@ -69,3 +70,125 @@ string base64::encode(vector<uint8_t> &__arr) {
 
     return __res;
 }
+
+vector<uint8_t> base64::decode(const string &__str) {
+    vector<uint8_t> __arr;
+
+    return __arr;
+}
+
+vector<uint8_t> base64::read_file(const string &__str) {
+    vector<uint8_t> __arr;
+    ifstream __file;
+    __file.open(__str, ios::binary);
+
+    if (!__file.is_open()) {
+        cerr << "File: " << __str << " did not found!" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    char temp;
+    while (__file.read(&temp, sizeof(char))) {
+        __arr.push_back(temp);
+    }
+
+    __file.close();
+
+    return __arr;
+}
+
+void base64::write_file(const vector<uint8_t> &__arr, const string &__str) {
+    ofstream __file;
+    __file.open(__str, ios::binary);
+
+    for (const auto &el : __arr) __file.write((char *)&el, sizeof(uint8_t));
+
+    __file.close();
+}
+
+#ifdef COMPILE_CLI
+#include <algorithm>
+
+static void print_help(int exit_code = EXIT_FAILURE) {
+    cout << "Usage: base64 [Options]...\n\n";
+    cout << "Options:-\n";
+    cout << "  -h, --help     Display help\n";
+    cout << "  -f, --file     Display help\n";
+    cout << "  -t, --text     Text to encode\n";
+    cout << "  -o, --output   Output to given file name\n";
+    exit(exit_code);
+}
+
+// C++ Command parsing
+// https://stackoverflow.com/a/868894/13057978
+static char *cmdOption(char **begin, int argc, const string &option) {
+    char **end = begin + argc;
+    char **itr = find(begin, end, option);
+    if (itr != end && ++itr != end) {
+        return *itr;
+    }
+    return 0;
+}
+
+static bool cmdExists(char **begin, int argc, const string &option) {
+    char **end = begin + argc;
+    return find(begin, end, option) != end;
+}
+
+static vector<uint8_t> bytesarray(char *__str) {
+    int i = 0;
+    vector<uint8_t> __res;
+    while (__str[i] != '\0') {
+        __res.push_back((uint8_t)__str[i++]);
+    }
+
+    return __res;
+}
+
+int main(int argc, char **argv) {
+    // cout << getCmdOption(argv, argv + argc, "-h") << "\n";
+    // cout << getCmdOption(argv, argv + argc, "-o") << "\n";
+
+    if (argc >= 2) {
+        if (cmdExists(argv, argc, "-h") || cmdExists(argv, argc, "--help"))
+            print_help(EXIT_SUCCESS);
+
+        string __base64_ans;
+        vector<uint8_t> __bytes_array;
+
+        if (cmdExists(argv, argc, "-t") || cmdExists(argv, argc, "--text")) {
+            if (cmdExists(argv, argc, "-t"))
+                __bytes_array = bytesarray(cmdOption(argv, argc, "-t"));
+            else
+                __bytes_array = bytesarray(cmdOption(argv, argc, "-text"));
+        }
+
+        else if (cmdExists(argv, argc, "-f") || cmdExists(argv, argc, "--file")) {
+            if (cmdExists(argv, argc, "-f"))
+                __bytes_array = base64::read_file(cmdOption(argv, argc, "-f"));
+            else
+                __bytes_array = base64::read_file(cmdOption(argv, argc, "-file"));
+        }
+
+        if (__bytes_array.size()) {
+            __base64_ans = base64::encode(__bytes_array);
+        }
+
+        if (cmdExists(argv, argc, "-o") || cmdExists(argv, argc, "--output")) {
+            char *outfile;
+            if (cmdExists(argv, argc, "-o"))
+                outfile = cmdOption(argv, argc, "-o");
+            else
+                outfile = cmdOption(argv, argc, "-output");
+
+            ofstream __file;
+            __file.open(outfile);
+            __file.write(__base64_ans.c_str(), __base64_ans.size());
+        } else {
+            cout << __base64_ans << "\n";
+        }
+    } else {
+        print_help();
+    }
+}
+#endif  // COMPILE_CLI
