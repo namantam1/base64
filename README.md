@@ -21,7 +21,7 @@ cd base64/src/
 
 ### To use CLI Options
 
-- Compile with cli option to generate exectable.
+- Compile with cli option to generate executable.
 
 ```bash
 # Using make
@@ -57,7 +57,6 @@ g++ -c base64.cpp -o base64.o
 - Include base64 as library in your project.
 ```c++
 // example.cpp
-
 #include <iostream>
 #include "base64.hpp"
 
@@ -94,10 +93,20 @@ g++ base64.o example.cpp -o example
 ## TODO
 - [ ] Implement base64 encode algorithm.
 - [ ] Implement read binary file and return as 8-bit array.
-- [ ] Implement commmand line parser.
+- [ ] Implement command line parser.
 - [x] Handle error and throw proper error with message
 - [x] Implement base64 decode function.
 - [x] Implement write_file function to convert 8-bit array to binary.
 - [x] Write test & benchmarks to get performance idea.
 - [x] Improve encode/decode algorithm.
-- [x] Document encode/decode algorith.
+- [x] Document encode/decode algorithm.
+
+## Reference
+
+- [Base64 - Wikipedia](https://en.wikipedia.org/wiki/Base64).
+- [Blog - What is base64 encoding](https://levelup.gitconnected.com/what-is-base64-encoding-4b5ed1eb58a4).
+- [Encode an ASCII string into Base-64 Format](https://www.geeksforgeeks.org/encode-ascii-string-base-64-format/).
+- [Base64 C source code](https://web.mit.edu/freebsd/head/contrib/wpa/src/utils/base64.c).
+
+## Licence
+[base64](https://github.com/namantam1/base64) source code is licensed under the MIT [Licence](https://github.com/namantam1/base64/blob/main/LICENSE).
