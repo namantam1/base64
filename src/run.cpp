@@ -10,13 +10,20 @@ ostream &operator<<(ostream &os, vector<T> &arr) {
 }
 
 int main(int argc, char **argv) {
-    // vector<uint8_t> arr = {'N', 'A', 'M'};
-    vector<uint8_t> arr = base64::read_file("images/t.txt");
+    // 8-bit array
+    vector<uint8_t> arr = {'a', 'b', 'c'};
 
-    for (size_t i=0; i<arr.size(); i++) {
-        printf("val: %02x %c\n", arr[i], arr[i]);
-    }
-    cout << "\n";
+    // get bas64 string
+    string bs64_str = base64::encode(arr);
 
-    // cout << base64::encode(arr) << "\n";
+    // to get base64 of a binary file
+    string file_bs64_str = base64::encode(base64::read_file("path/to/binary_file.png"));
+
+    // to get 8-bit array of base64 string
+    vector<uint8_t> file_bit_array = base64::decode(bs64_str);
+
+    // base64 string to binary file
+    base64::write_file(file_bit_array, "bin_file.png");
+
+    return 0;
 }

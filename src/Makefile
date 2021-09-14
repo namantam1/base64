@@ -5,6 +5,8 @@ RUN=run
 
 all: $(RUN)
 
+obj: $(BIN)
+
 cli:
 	$(CC) $(CFLAGS) -DCOMPILE_CLI base64.cpp -o bs64
 
@@ -18,4 +20,4 @@ $(RUN): $(RUN).cpp $(BIN)
 	$(CC) $(CFLAGS) $^ -o $@.exe
 
 clean:
-	rm -f *.exe *.out *.o
+	rm -f *.exe *.out *.o bs64

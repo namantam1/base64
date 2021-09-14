@@ -113,7 +113,7 @@ static void print_help(int exit_code = EXIT_FAILURE) {
     cout << "Usage: base64 [Options]...\n\n";
     cout << "Options:-\n";
     cout << "  -h, --help     Display help\n";
-    cout << "  -f, --file     Display help\n";
+    cout << "  -f, --file     Path to file\n";
     cout << "  -t, --text     Text to encode\n";
     cout << "  -o, --output   Output to given file name\n";
     exit(exit_code);
