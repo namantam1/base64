@@ -91,15 +91,15 @@ g++ base64.o example.cpp -o example
 ```
 
 ## TODO
-- [ ] Implement base64 encode algorithm.
-- [ ] Implement read binary file and return as 8-bit array.
-- [ ] Implement command line parser.
-- [x] Handle error and throw proper error with message
-- [x] Implement base64 decode function.
-- [x] Implement write_file function to convert 8-bit array to binary.
-- [x] Write test & benchmarks to get performance idea.
-- [x] Improve encode/decode algorithm.
-- [x] Document encode/decode algorithm.
+- [x] Implement base64 encode algorithm.
+- [x] Implement read binary file and return as 8-bit array.
+- [x] Implement command line parser.
+- [ ] Handle error and throw proper error with message
+- [ ] Implement base64 decode function.
+- [ ] Implement write_file function to convert 8-bit array to binary.
+- [ ] Write test & benchmarks to get performance idea.
+- [ ] Improve encode/decode algorithm.
+- [ ] Document encode/decode algorithm.
 
 ## Reference
 
