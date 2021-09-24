@@ -100,6 +100,7 @@ g++ base64.o example.cpp -o example
 - [ ] Write test & benchmarks to get performance idea.
 - [ ] Improve encode/decode algorithm.
 - [ ] Document encode/decode algorithm.
+- [ ] To make this as a Header-Only C++ library.
 
 ## Reference
 
