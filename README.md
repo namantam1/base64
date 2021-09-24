@@ -31,7 +31,7 @@ make cli
 g++ -DCOMPILE_CLI base64.cpp -o bs64
 
 # Now run following command to get help text and play with cli.
-./bs64 --h
+./bs64 -h
 
 # You will get output as -
 
